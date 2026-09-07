@@ -62,7 +62,7 @@ env:
   SUSFS_PATCH_FIXED: "task_mmu"
 
   REKERNEL_ENABLE: "false"
-  DROIDSPACES_ENABLE: "true"
+  DROIDSPACES_ENABLE: "false"
   NOMOUNT_ENABLE: "false"
 
   HOOK_METHOD: "syscall"
@@ -74,7 +74,7 @@ env:
   KPM_KPATCH_NEXT: "false"
   KPM_PATCH_SOURCE: "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU_patch/refs/heads/main/kpm/patch_linux"
 
-  BASEBAND_GUARD_ENABLE: "true"
+  BASEBAND_GUARD_ENABLE: "false"
   BASEBAND_GUARD_BOOT: "false"
 
   GENERATE_DTB: "false"
@@ -83,7 +83,7 @@ env:
   BUILD_DEBUGGER: "false"   # turn on for the first run so any .rej files get surfaced/uploaded
   SKIP_PATCH: "false"
 
-  BUILD_OTHER_CONFIG: "false"
+  BUILD_OTHER_CONFIG: "true"
   MERGE_CONFIG_FILES: "vendor/oplus.config"
 
   FREE_MORE_SPACE: "false"
