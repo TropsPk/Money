@@ -10,7 +10,7 @@ env:
   DEVICE_CODENAME : "instantnoodle"
 
   CUSTOM_CMDS : "CLANG_TRIPLE=aarch64-linux-gnu-"
-  EXTRA_CMDS : "BRAND_SHOW_FLAG=oneplus LD=ld.lld LLVM=1 LLVM_IAS=1"
+  EXTRA_CMDS : ""
 
   KERNEL_SOURCE : "https://github.com/The-Anomalist/Anomaly-KernelV2.git"
   KERNEL_BRANCH : "nebula"
