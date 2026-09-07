@@ -12,8 +12,8 @@ env:
   CUSTOM_CMDS : "CLANG_TRIPLE=aarch64-linux-gnu-"
   EXTRA_CMDS : ""
 
-  KERNEL_SOURCE : "https://github.com/LineageOS/android_kernel_oneplus_sm8250.git"
-  KERNEL_BRANCH : "lineage-23.2"
+  KERNEL_SOURCE : "https://github.com/The-Anomalist/Anomaly-KernelV2.git"
+  KERNEL_BRANCH : "Anomaly+"
 
   CLANG_SOURCE : "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.7/LLVM-19.1.7-Linux-X64.tar.xz"
   CLANG_BRANCH : ""
@@ -36,7 +36,7 @@ env:
   KERNELSU_AUTO_GET : "true" # if u want easy setting kernelsu, u can true.
   KERNELSU_AUTO_FORK : "resukisu" # xxksu, rsuntk, next, resukisu and sukisu
 
-  SUSFS_ENABLE : true
+  SUSFS_ENABLE : false
   SUSFS_FIXED : false
 
   AK3_SOURCE : "https://github.com/osm0sis/AnyKernel3.git"
@@ -47,7 +47,7 @@ env:
   NEED_DTBO : false
   NEED_SAFE_DTBO : false
 
-  ROM_TEXT : "lineage23.2_a16"
+  ROM_TEXT : "Anomaly+"
 
   # Other env
   PYTHON_VERSION: "3"
@@ -143,13 +143,7 @@ jobs:
 
       - name: 🚀 Build Process
         uses: ./.github/workflows/build-process
-
-      - name: 🖼️ Generate DTB (kona + kona-v2 + kona-v2.1)
-        run: |
-          cd $GITHUB_WORKSPACE/device_kernel
-          cat out/arch/arm64/boot/dts/vendor/oplus/kona.dtb out/arch/arm64/boot/dts/vendor/oplus/kona-v2.dtb out/arch/arm64/boot/dts/vendor/oplus/kona-v2.1.dtb > out/arch/arm64/boot/dtb.img
-          echo "[+] Generated dtb.img"
-
+     
       - name: 🔩 Pack Process
         uses: ./.github/workflows/pack-process
 
