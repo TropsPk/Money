@@ -61,7 +61,7 @@ env:
   SUSFS_FOLDER_FIXED: "Patch"
   SUSFS_PATCH_FIXED: "task_mmu"
 
-  REKERNEL_ENABLE: "true"
+  REKERNEL_ENABLE: "false"
   DROIDSPACES_ENABLE: "true"
   NOMOUNT_ENABLE: "false"
 
