@@ -13,7 +13,7 @@ env:
   EXTRA_CMDS : "LD=ld.lld"
 
   KERNEL_SOURCE : "https://github.com/The-Anomalist/Anomaly-KernelV2.git"
-  KERNEL_BRANCH : "nebula"
+  KERNEL_BRANCH : "Anomaly%2B"
 
   CLANG_SOURCE : "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.7/LLVM-19.1.7-Linux-X64.tar.xz"
   CLANG_BRANCH : ""
