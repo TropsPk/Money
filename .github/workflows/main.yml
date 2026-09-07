@@ -32,11 +32,11 @@ env:
   KERNELSU_SOURCE : ""
   KERNELSU_BRANCH : ""
 
-  KERNELSU_AUTO_GET : "flase"
+  KERNELSU_AUTO_GET : "true"
   KERNELSU_AUTO_FORK : "resukisu"
 
-  SUSFS_ENABLE : false
-  SUSFS_FIXED : false   # no JackA1ltman fixup folder exists for this fork — leave off, see note below
+  SUSFS_ENABLE : true
+  SUSFS_FIXED : true   # no JackA1ltman fixup folder exists for this fork — leave off, see note below
 
   AK3_SOURCE : "https://github.com/osm0sis/AnyKernel3.git"
   AK3_BRANCH : "master"
@@ -80,7 +80,7 @@ env:
   GENERATE_DTB: "false"
   GENERATE_CHIP: "qcom"
 
-  BUILD_DEBUGGER: "true"   # turn on for the first run so any .rej files get surfaced/uploaded
+  BUILD_DEBUGGER: "false"   # turn on for the first run so any .rej files get surfaced/uploaded
   SKIP_PATCH: "false"
 
   BUILD_OTHER_CONFIG: "false"
