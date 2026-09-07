@@ -110,9 +110,6 @@ jobs:
       - name: 🪝 Patch Kernel of SUSFS
         uses: ./.github/workflows/patch-susfs
 
-      - name: 🔗 Patch for no-kprobe
-        uses: ./.github/workflows/patch-no-kprobe
-
       - name: 🧰 Patch Kernel of Re:Kernel
         uses: ./.github/workflows/patch-rekernel
 
