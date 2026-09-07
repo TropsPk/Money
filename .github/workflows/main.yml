@@ -10,7 +10,7 @@ env:
   DEVICE_CODENAME : "instantnoodle"
 
   CUSTOM_CMDS : "CLANG_TRIPLE=aarch64-linux-gnu-"
-  EXTRA_CMDS : "LD=ld.lld"
+  EXTRA_CMDS : ""
 
   KERNEL_SOURCE : "https://github.com/The-Anomalist/Anomaly-KernelV2.git"
   KERNEL_BRANCH : "Anomaly+"
@@ -32,11 +32,11 @@ env:
   KERNELSU_SOURCE : ""
   KERNELSU_BRANCH : ""
 
-  KERNELSU_AUTO_GET : "true"
+  KERNELSU_AUTO_GET : "flase"
   KERNELSU_AUTO_FORK : "resukisu"
 
-  SUSFS_ENABLE : true
-  SUSFS_FIXED : true   # no JackA1ltman fixup folder exists for this fork — leave off, see note below
+  SUSFS_ENABLE : false
+  SUSFS_FIXED : false   # no JackA1ltman fixup folder exists for this fork — leave off, see note below
 
   AK3_SOURCE : "https://github.com/osm0sis/AnyKernel3.git"
   AK3_BRANCH : "master"
@@ -46,7 +46,7 @@ env:
   NEED_DTBO : false
   NEED_SAFE_DTBO : false
 
-  ROM_TEXT : "anomaly_nebula"
+  ROM_TEXT : "Anomaly+"
 
   PYTHON_VERSION: "3"
 
@@ -83,7 +83,7 @@ env:
   BUILD_DEBUGGER: "true"   # turn on for the first run so any .rej files get surfaced/uploaded
   SKIP_PATCH: "false"
 
-  BUILD_OTHER_CONFIG: "true"
+  BUILD_OTHER_CONFIG: "false"
   MERGE_CONFIG_FILES: "vendor/oplus.config"
 
   FREE_MORE_SPACE: "false"
