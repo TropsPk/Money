@@ -1,4 +1,4 @@
-name: Build Oneplus 8 (Anomaly-KernelV2, ReSukiSU+SUSFS)
+name: Build OnePlus 8 (crDroid 16 / A16)
 
 on:
   workflow_call:
@@ -6,14 +6,14 @@ on:
 
 env:
   # Device env
-  DEVICE_NAME : "oneplus_8"
+  DEVICE_NAME : "OnePlus 8"
   DEVICE_CODENAME : "instantnoodle"
 
   CUSTOM_CMDS : "CLANG_TRIPLE=aarch64-linux-gnu-"
-  EXTRA_CMDS : ""
+  EXTRA_CMDS : "LD=ld.lld LLVM=1 LLVM_IAS=1"
 
-  KERNEL_SOURCE : "https://github.com/The-Anomalist/Anomaly-KernelV2.git"
-  KERNEL_BRANCH : "Anomaly+"
+  KERNEL_SOURCE : "https://github.com/crdroidandroid/android_kernel_oneplus_sm8250.git"
+  KERNEL_BRANCH : "16.0" # active branch (crDroid 16 / Android 16, kernel 4.19.325). NOT "16.0-instantnoodle" - that branch is a stale 2020 snapshot.
 
   CLANG_SOURCE : "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.7/LLVM-19.1.7-Linux-X64.tar.xz"
   CLANG_BRANCH : ""
@@ -25,7 +25,7 @@ env:
   GCC_32_BRANCH : "android12L-release"
 
   DEFCONFIG_SOURCE: ""
-  DEFCONFIG_NAME : "vendor/kona-perf_defconfig"
+  DEFCONFIG_NAME : "vendor/kona-perf_defconfig" # shared kona defconfig used by the OnePlus 8 series
   DEFCONFIG_ORIGIN_IMAGE: ""
   DEFCONFIG_FROM_BOOT: false
 
@@ -33,10 +33,10 @@ env:
   KERNELSU_BRANCH : ""
 
   KERNELSU_AUTO_GET : "true"
-  KERNELSU_AUTO_FORK : "resukisu"
+  KERNELSU_AUTO_FORK : "resukisu" # matches the fork used in your other OP8 builds
 
-  SUSFS_ENABLE : true
-  SUSFS_FIXED : true   # no JackA1ltman fixup folder exists for this fork — leave off, see note below
+  SUSFS_ENABLE : false
+  SUSFS_FIXED : false # set true + fill PATCHES_SOURCE/SUSFS_FOLDER_FIXED/SUSFS_PATCH_FIXED if this kernel needs a secondary SUSFS fixup patch
 
   AK3_SOURCE : "https://github.com/osm0sis/AnyKernel3.git"
   AK3_BRANCH : "master"
@@ -46,8 +46,9 @@ env:
   NEED_DTBO : false
   NEED_SAFE_DTBO : false
 
-  ROM_TEXT : "Anomaly+"
+  ROM_TEXT : "crDroidKernel" # flasher zip name tag - change to your branding
 
+  # Other env
   PYTHON_VERSION: "3"
 
   PACK_METHOD: "Anykernel3"
@@ -55,11 +56,11 @@ env:
 
   KERNELSU_METHOD: "shell"
 
-  PATCHES_SOURCE: "TropsPk/Money"
-  PATCHES_BRANCH: "master"
+  PATCHES_SOURCE: "author/source"
+  PATCHES_BRANCH: "branch"
 
-  SUSFS_FOLDER_FIXED: "Patch"
-  SUSFS_PATCH_FIXED: "task_mmu"
+  SUSFS_FOLDER_FIXED: ""
+  SUSFS_PATCH_FIXED: ""
 
   REKERNEL_ENABLE: "false"
   DROIDSPACES_ENABLE: "false"
@@ -80,18 +81,18 @@ env:
   GENERATE_DTB: "false"
   GENERATE_CHIP: "qcom"
 
-  BUILD_DEBUGGER: "false"   # turn on for the first run so any .rej files get surfaced/uploaded
+  BUILD_DEBUGGER: "false"
   SKIP_PATCH: "false"
 
-  BUILD_OTHER_CONFIG: "true"
-  MERGE_CONFIG_FILES: "vendor/oplus.config"
+  BUILD_OTHER_CONFIG: "false"
+  MERGE_CONFIG_FILES: "vendor/debugfs.config,vendor/lahaina_QGKI.config"
 
-  FREE_MORE_SPACE: "false"
+  FREE_MORE_SPACE: "false" # crdroid's tree is large; flip to "true" if the runner fails with "no space left on device"
 
 jobs:
   build-kernel:
-    name: Oneplus 8 (Anomaly-KernelV2, ReSukiSU+SUSFS)
-    runs-on: ubuntu-22.04
+    name: Build Kernel
+    runs-on: ubuntu 22.04
     env:
       CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
       CCACHE_NOHASHDIR: "true"
@@ -109,6 +110,15 @@ jobs:
 
       - name: 🪝 Patch Kernel of SUSFS
         uses: ./.github/workflows/patch-susfs
+
+      - name: 🔗 Patch for no-kprobe
+        uses: ./.github/workflows/patch-no-kprobe
+
+      - name: 🪛 Extra Kernel Options
+        run: |
+          # Only ${{ env.DEVICE_NAME }} use it.
+          cd $GITHUB_WORKSPACE/device_kernel
+          # Nothing
 
       - name: 🧰 Patch Kernel of Re:Kernel
         uses: ./.github/workflows/patch-rekernel
